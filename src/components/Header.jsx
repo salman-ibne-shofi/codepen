@@ -9,7 +9,7 @@ const Header = () => {
 	const logo = "https://i.ibb.co.com/Ndt5nFqf/codepen-icon-26.png";
 
 	return (
-		<Container>
+		<Container position="static">
 			<Toolbar>
 				<img src={logo} alt="logo" style={{ width: 40 }} />
 			</Toolbar>
