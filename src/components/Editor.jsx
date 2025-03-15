@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Box, styled } from "@mui/material";
 import CloseFullscreenIcon from "@mui/icons-material/CloseFullscreen";
 
@@ -13,7 +14,7 @@ const Container = styled(Box)`
 	flex-basic: 0;
 	display: flex;
 	flex-direction: column;
-    padding: 0 8px 8px;
+	padding: 0 8px 8px;
 `;
 
 const Heading = styled(Box)`
@@ -33,12 +34,14 @@ const Header = styled(Box)`
 `;
 
 const Editor = ({ language, icon, color, value, onChange }) => {
+	const [open, setOpen] = useState(true);
+
 	const handleChange = (val) => {
 		onChange && onChange(val);
 	};
 
 	return (
-		<Container>
+		<Container style={open ? null : { flexGrow: 0 }}>
 			<Header>
 				<Heading>
 					<Box
@@ -59,7 +62,11 @@ const Editor = ({ language, icon, color, value, onChange }) => {
 					</Box>
 					{language}
 				</Heading>
-				<CloseFullscreenIcon />
+				<CloseFullscreenIcon
+					fontSize="small"
+					style={{ alignSelf: "center" }}
+					onClick={() => setOpen((prevState) => !prevState)}
+				/>
 			</Header>
 			<CodeMirror
 				value={value}

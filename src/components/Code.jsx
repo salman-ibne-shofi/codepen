@@ -4,7 +4,7 @@ import Editor from "./Editor";
 const Container = styled(Box)`
 	display: flex;
 	background-color: #060606;
-	height: 56vh;
+	height: 55vh;
 `;
 
 const Code = () => {
