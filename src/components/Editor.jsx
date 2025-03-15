@@ -1,6 +1,21 @@
 import { Box, styled } from "@mui/material";
 import CloseFullscreenIcon from "@mui/icons-material/CloseFullscreen";
 
+import CodeMirror from "@uiw/react-codemirror";
+import { javascript } from "@codemirror/lang-javascript";
+import { xml } from "@codemirror/lang-xml";
+import { css } from "@codemirror/lang-css";
+import { material } from "@uiw/codemirror-theme-material";
+import "../App.css";
+
+const Container = styled(Box)`
+	flex-grow: 1;
+	flex-basic: 0;
+	display: flex;
+	flex-direction: column;
+    padding: 0 8px 8px;
+`;
+
 const Heading = styled(Box)`
 	background: #1d1e22;
 	display: flex;
@@ -13,17 +28,23 @@ const Header = styled(Box)`
 	color: #aaaebc;
 	justify-content: space-between;
 	font-weight: 700;
+	align-items: center;
+	padding: 5px;
 `;
 
-const Editor = () => {
+const Editor = ({ language, icon, color, value, onChange }) => {
+	const handleChange = (val) => {
+		onChange && onChange(val);
+	};
+
 	return (
-		<Box>
+		<Container>
 			<Header>
 				<Heading>
 					<Box
 						component="span"
 						style={{
-							background: "red",
+							background: color,
 							height: 20,
 							width: 20,
 							display: "flex",
@@ -31,16 +52,28 @@ const Editor = () => {
 							borderRadius: 5,
 							marginRight: 5,
 							paddingBottom: 2,
+							color: "#000",
 						}}
 					>
-						/
+						{icon}
 					</Box>
-					HTML
+					{language}
 				</Heading>
 				<CloseFullscreenIcon />
-				<Box></Box>
 			</Header>
-		</Box>
+			<CodeMirror
+				value={value}
+				extensions={
+					language === "HTML"
+						? [xml()]
+						: language === "javascript"
+						? [javascript()]
+						: [css()]
+				}
+				theme={material}
+				onChange={handleChange}
+			/>
+		</Container>
 	);
 };
 
