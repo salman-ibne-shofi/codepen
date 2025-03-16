@@ -1,5 +1,7 @@
+import { useContext } from "react";
 import { Box, styled } from "@mui/material";
 import Editor from "./Editor";
+import { DataContext } from "../context/DataProvider";
 
 const Container = styled(Box)`
 	display: flex;
@@ -8,11 +10,31 @@ const Container = styled(Box)`
 `;
 
 const Code = () => {
+	const { html, setHtml, css, setCss, js, setJs } = useContext(DataContext);
+
 	return (
 		<Container>
-			<Editor language="HTML" icon="/" color="#FF3C41" />
-			<Editor language="CSS" icon="*" color="#0EBEFF" />
-			<Editor language="JavaScript" icon="{}" color="#FCD000" />
+			<Editor
+				language="HTML"
+				icon="/"
+				color="#FF3C41"
+				value={html}
+				onChange={setHtml}
+			/>
+			<Editor
+				language="CSS"
+				icon="🎨"
+				color="#0EBEFF"
+				value={css}
+				onChange={setCss}
+			/>
+			<Editor
+				language="JavaScript"
+				icon="JS"
+				color="#FCD000"
+				value={js}
+				onChange={setJs}
+			/>
 		</Container>
 	);
 };

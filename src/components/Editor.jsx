@@ -36,8 +36,9 @@ const Header = styled(Box)`
 const Editor = ({ language, icon, color, value, onChange }) => {
 	const [open, setOpen] = useState(true);
 
-	const handleChange = (val) => {
-		onChange && onChange(val);
+	const handleChange = (value) => {
+        console.log(`Update ${language}:`, value);
+		onChange(value);
 	};
 
 	return (
