@@ -15,6 +15,8 @@ const Container = styled(Box)`
 	display: flex;
 	flex-direction: column;
 	padding: 0 8px 8px;
+	overflow: auto;
+	max-height: 50vh;
 `;
 
 const Heading = styled(Box)`
@@ -37,7 +39,7 @@ const Editor = ({ language, icon, color, value, onChange }) => {
 	const [open, setOpen] = useState(true);
 
 	const handleChange = (value) => {
-        console.log(`Update ${language}:`, value);
+		console.log(`Update ${language}:`, value);
 		onChange(value);
 	};
 
@@ -69,18 +71,20 @@ const Editor = ({ language, icon, color, value, onChange }) => {
 					onClick={() => setOpen((prevState) => !prevState)}
 				/>
 			</Header>
-			<CodeMirror
-				value={value}
-				extensions={
-					language === "HTML"
-						? [xml()]
-						: language === "javascript"
-						? [javascript()]
-						: [css()]
-				}
-				theme={material}
-				onChange={handleChange}
-			/>
+			<div style={{ flexGrow: 1, overflow: "auto" }}>
+				<CodeMirror
+					value={value}
+					extensions={
+						language === "HTML"
+							? [xml()]
+							: language === "javascript"
+							? [javascript()]
+							: [css()]
+					}
+					theme={material}
+					onChange={handleChange}
+				/>
+			</div>
 		</Container>
 	);
 };
